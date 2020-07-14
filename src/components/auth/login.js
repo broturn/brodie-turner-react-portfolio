@@ -3,12 +3,12 @@ import axios from "axios";
 
 export default class Login extends Component {
     constructor(props) {
-        super(props);
+        super(props); 
 
         this.state = {
             email: "",
             password: "",
-            errorText:""
+            errorText: ""
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,16 +39,20 @@ export default class Login extends Component {
         .then(response => {
             if (response.data.status === 'created') {
                 console.log("You can come in...")
+                this.props.handleSuccessfulAuth();
             } else {
                 this.setState({
                     errorText: "Wrong email or password"
                 });
+                this.props.handleUnsuccessfulAuth();
             }
-        }).catch(error => {
+        })
+        .catch(error => {
             this.setState({
                 errorText: "An error occurred"
 
-            })
+            });
+            this.props.handleUnsuccessfulAuth();
             
         });
 
