@@ -1,5 +1,9 @@
 import React, { Component } from "react";
 import axios from "axios";
+import DropzoneComponent from "react-dropzone-component";
+
+import "../../../node_modules/react-dropzone-component/styles/filepicker.css";
+import "../../../node_modules/dropzone/dist/min/dropzone.min.css";
 
 export default class PortfolioForm extends Component {
     constructor(props) {
@@ -8,7 +12,7 @@ export default class PortfolioForm extends Component {
         this.state = {
             name: "",
             description: "",
-            category: "",
+            category: "eCommerce",
             position: "",
             url: "",
             thumb_image: "",
@@ -18,6 +22,23 @@ export default class PortfolioForm extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.componentConfig = this.componentConfig.bind(this);
+        this.djsConfig = this.djsConfig.bind(this);
+    }
+
+    componentConfig() {
+        return {
+            iconFiletypes: [".jpg", ".pgn"],
+            showFiletypeIcon: true,
+            postUrl: "https://httpbin.org/post"
+        }
+    }
+
+    djsConfig() {
+        return {
+            addRemoveLinks: true,
+            maxFiles: 1
+        }
     }
 
     buildForm() {
@@ -46,12 +67,12 @@ export default class PortfolioForm extends Component {
              this.buildForm(), 
              { withCredentials: true}
              ).then(response => {
-                 console.log('response', response);
-             })
+                 this.props.handleSuccessfulFormSubmission(response.data.portfolio_item);
+                 })
              .catch(error => {
                  console.log('portfolio form handleSubmit error', error);
                  
-             })
+             });
 
 
       this.buildForm();
@@ -82,13 +103,7 @@ export default class PortfolioForm extends Component {
                         />
                     </div>  
                     <div>
-                        <input
-                        type="text"
-                        name="category"
-                        placeholder= "Category"
-                        value={this.state.category}
-                        onChange={this.handleChange}
-                        />
+                        
                     
                         <input
                         type="text"
@@ -97,15 +112,32 @@ export default class PortfolioForm extends Component {
                         value={this.state.postion}
                         onChange={this.handleChange}
                         />
+                        <select
+                         name="category"
+                         value={this.state.category}
+                        onChange={this.handleChange}
+                        >
+                            <option value="eCommerce">eCommerce</option>
+                            <option value="Scheduling">Scheduling</option>
+                            <option value="Enterprise">Enterprise</option>
+                        </select>
                     </div>
                     <div>
-                        <input type="text"
+                        <textarea
                         name="description"
                         placeholder= "Description"
                         value={this.state.description}
                         onChange={this.handleChange}
                         />
                     </div> 
+                    <div className="image-uploaders">
+                        <DropzoneComponent
+                            config={this.componentConfig()}
+                            djsConfig={this.djsConfig()}
+                            >
+                         </DropzoneComponent>
+
+                    </div>
                     <div>
                         <button type="submit">Save</button>
                     </div>            
