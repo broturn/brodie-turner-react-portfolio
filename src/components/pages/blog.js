@@ -22,7 +22,6 @@ class Blog extends Component {
         this.handleNewBlogClick = this.handleNewBlogClick.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
         this.handleSuccessfulNewBlogSubmission = this.handleSuccessfulNewBlogSubmission.bind(this);
-
     }
     handleSuccessfulNewBlogSubmission(blog) {
         this.setState({
@@ -30,19 +29,16 @@ class Blog extends Component {
             blogItems: [blog].concat(this.state.blogItems)
         });
     }
-
     handleModalClose() {
         this.setState({
             blogModalIsOpen: false
         });
     }
-
     handleNewBlogClick () {
         this.setState({
             blogModalIsOpen: true
         });
     }
-
     onScroll() {
         
             if (this.state.isLoading || this.state.blogItems.length === this.state.totalCount) {
@@ -53,9 +49,7 @@ class Blog extends Component {
                 this.getBlogItems();
                 
             }
-        }
-    
-
+        }   
     getBlogItems() {
         this.setState({
             currentPage: this.state.currentPage + 1
@@ -64,22 +58,18 @@ class Blog extends Component {
         { withCredentials: true})
         .then(response => {
             console.log("getting", response.data);
-            
             this.setState({
                 blogItems: this.state.blogItems.concat(response.data.portfolio_blogs),
                 totalCount: response.data.meta.total_records,
                 isLoading: false
             });
-            
         }).catch(error => {
             console.log("getBlogItems error", error);
-            
         });
     }
     componentWillMount() {
         this.getBlogItems();
     }
-
     componentWillUnmount() {
         window.removeEventListener("scroll", this.onScroll, false);
     }
@@ -87,20 +77,20 @@ class Blog extends Component {
         const blogRecords = this.state.blogItems.map(blogItem => {
         return <BlogItem key={blogItem.id} blogItem={blogItem} />;
         });
-
-       
         return(
             <div className="blog-container">
                <BlogModal 
                handleSuccessfulNewBlogSubmission={this.handleSuccessfulNewBlogSubmission}
                handleModalClose= {this.handleModalClose}
                modalIsOpen={this.state.blogModalIsOpen} />
-
+                
+                {this.props.loggedInStatus === "LOGGED_IN" ? (
                <div className="new-blog-link">
                    <a onClick={this.handleNewBlogClick}>
                        <FontAwesomeIcon icon="feather-alt" />
                    </a>
                </div>
+                ) :null}
                 <div className="content-container">
                 {blogRecords}
 
