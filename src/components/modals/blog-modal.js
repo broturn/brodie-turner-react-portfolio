@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ReactModal from "react-modal";
 
-import BlogForm from "../blog/blog-form"
+import BlogForm from "../blog/blog-form";
 
-ReactModal.setAppElement(".app-wrapper")
+ReactModal.setAppElement(".app-wrapper");
 
 export default class BlogModal extends Component {
     constructor(props) {
@@ -27,7 +27,8 @@ export default class BlogModal extends Component {
     }
 
     handleSuccessfullFormSubmission(blog) {
-        console.log('blog from blog form', blog);
+        this.props.handleSuccessfulNewBlogSubmission(blog);
+       
         
     }
 

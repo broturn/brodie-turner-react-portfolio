@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import BlogItem from "../blog/blog-item";
-import BlogModal from "../modals/blog-modal"
+import BlogModal from "../modals/blog-modal";
 
 class Blog extends Component {
     constructor() {
@@ -21,19 +21,26 @@ class Blog extends Component {
         window.addEventListener("scroll", this.onScroll, false);
         this.handleNewBlogClick = this.handleNewBlogClick.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
+        this.handleSuccessfulNewBlogSubmission = this.handleSuccessfulNewBlogSubmission.bind(this);
 
+    }
+    handleSuccessfulNewBlogSubmission(blog) {
+        this.setState({
+            blogModalIsOpen: false,
+            blogItems: [blog].concat(this.state.blogItems)
+        });
     }
 
     handleModalClose() {
         this.setState({
             blogModalIsOpen: false
-        })
+        });
     }
 
     handleNewBlogClick () {
         this.setState({
             blogModalIsOpen: true
-        })
+        });
     }
 
     onScroll() {
@@ -53,9 +60,10 @@ class Blog extends Component {
         this.setState({
             currentPage: this.state.currentPage + 1
         });
-        axios.get(`https://brodieturner.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`, { withCredentials: true})
+        axios.get(`https://brodieturner.devcamp.space/portfolio/portfolio_blogs?page=${this.state.currentPage}`, 
+        { withCredentials: true})
         .then(response => {
-            console.log('getting', response.data);
+            console.log("getting", response.data);
             
             this.setState({
                 blogItems: this.state.blogItems.concat(response.data.portfolio_blogs),
@@ -64,26 +72,27 @@ class Blog extends Component {
             });
             
         }).catch(error => {
-            console.log('getBlogItems error', error);
+            console.log("getBlogItems error", error);
             
         });
     }
-    componentDidMount() {
+    componentWillMount() {
         this.getBlogItems();
     }
 
     componentWillUnmount() {
-        window.removeEventListener("scroll", this.onScroll, false)
+        window.removeEventListener("scroll", this.onScroll, false);
     }
     render() {
         const blogRecords = this.state.blogItems.map(blogItem => {
         return <BlogItem key={blogItem.id} blogItem={blogItem} />;
-        })
+        });
 
        
         return(
             <div className="blog-container">
                <BlogModal 
+               handleSuccessfulNewBlogSubmission={this.handleSuccessfulNewBlogSubmission}
                handleModalClose= {this.handleModalClose}
                modalIsOpen={this.state.blogModalIsOpen} />
 
@@ -106,4 +115,4 @@ class Blog extends Component {
         }
     }
 
-export default Blog;[]
+export default Blog;
