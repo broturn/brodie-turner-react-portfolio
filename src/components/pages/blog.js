@@ -98,7 +98,7 @@ class Blog extends Component {
 
                <div className="new-blog-link">
                    <a onClick={this.handleNewBlogClick}>
-                       Open Modal!
+                       <FontAwesomeIcon icon="feather-alt" />
                    </a>
                </div>
                 <div className="content-container">
