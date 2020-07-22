@@ -8,5 +8,6 @@
         "plaintext",
         "javascript",
         "scss"
-    ]
+    ],
+    "python.pythonPath": "C:\\Users\\brotu\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe"
 }
