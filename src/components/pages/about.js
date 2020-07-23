@@ -12,7 +12,14 @@ export default function() {
         }}
         ></div>
         <div className="right-column">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce mi risus, eleifend nec risus elementum, pellentesque feugiat tortor. Ut id finibus ligula. Mauris et tellus non purus semper scelerisque quis vel dui. Nunc vehicula commodo gravida. Proin dictum et tellus non egestas. Vestibulum vestibulum augue pretium tristique fermentum. Phasellus magna tortor, gravida at purus ac, ultrices ornare arcu. Nulla facilisi. Nam dapibus, erat in cursus condimentum, nisi diam consequat dolor, in ornare arcu augue vel ex. Praesent tempor congue risus sit amet luctus. Donec ullamcorper accumsan lacus, ut convallis lorem elementum vitae. In interdum enim et leo convallis, id laoreet nisl feugiat. Quisque sagittis, tellus eget vulputate luctus, nibh leo interdum ipsum, sit amet tempor orci erat eget purus. Nam varius nibh quam, nec imperdiet risus ullamcorper eget.
+        I have always had a love for two things, learning and technology. 
+        This is what beckoned me to go and get two assocates degrees in Information Technology.
+        After difficulties in landing a job I decided to focus on my other love, learning. 
+        That love inspired me to go and get a Bacholor's degree in education. 
+        After three years in the classroom I have decided to give computing another go. Programming 
+        has always been something that has allowed my love of technology and learning to meet. 
+        I have always loved that in  programming  you take an empty screen and 
+        create something beautiful to share with the world.
         </div>
         </div>
     );
